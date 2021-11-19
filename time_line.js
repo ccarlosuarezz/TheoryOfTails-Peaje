@@ -16,7 +16,6 @@ let queueIntervals = [];
 
 const SETTING_LOCAL_TIME = 18000000;
 const SECOND_IN_MS = 1000;
-const MAX_ARRIVAL_SECONDS = 60;
 
 button.addEventListener('click', getTimeLine);
 
@@ -70,16 +69,13 @@ function getEvents(initTime, finalTime, arrivalFrequency, atentionTime) {
 function getIntervals(initTime, finalTime, arrivalFrequency, atentionTime) { //Evaluar cada minuto
     tableIntervals.innerHTML = '';
     queueIntervals = [];
-    let initTme = 0;
-    let lastTime = 1200;
-    let timeArrives = 15;
-    let time = initTme;
-    let event = 0;
+    let time = initTime;
+    let interval = 0;
     let total = 0;
-    for (let time = initTme; time < lastTime; time++) {
-        event++;
-        console.log(`${event}: ${Math.floor(time/60)}:${time%60}`);
-        if (Math.random() < 1/(timeArrives)) {
+    for (let time = initTime; time < finalTime; time+=SECOND_IN_MS) {
+        interval++;
+        console.log(`${interval}: ${Math.floor(time/60)}:${time%60}`);
+        if (Math.random() < 1/(arrivalFrequency)) {
             console.log('OK');
             total++;
             //Encolar
