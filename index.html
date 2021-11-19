@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="time.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <title>Lineas De Espera</title>
+</head>
+<body>
+    <h1>Lineas de Espera - Peaje</h1>
+    <div class="form_container">
+        <div class="form">
+            <input type="time" name="init_time_value" id="input_init_time" autocomplete="off" required/>
+            <label for="init_time_value" class="label_input">
+                <span class="content_input">Tiempo inicial</span>
+            </label>
+        </div>
+        <div class="form">
+            <input type="time" name="final_time_value" id="input_final_time" autocomplete="off" required/>
+            <label for="final_time_value" class="label_input">
+                <span class="content_input">Tiempo final</span>
+            </label>
+        </div>
+        <div class="form">
+            <input type="number" name="arrival_value" id="input_arrival" autocomplete="off" required/>
+            <label for="arrival_value" class="label_input">
+                <span class="content_input">Fecuencia maxima de llegada (seg)</span>
+            </label>
+        </div>
+        <div class="form">
+            <input type="number" name="atention_value" id="input_atention" autocomplete="off" required/>
+            <label for="atention_value" class="label_input">
+                <span class="content_input">Tiempo maximo de atención (seg)</span>
+            </label>
+        </div>
+        <button id="simulate" class="generate_button">
+            <strong>Simular</strong>
+        </button>
+    </div>
+    <!-- <div class="events_container">
+        <p><strong>Simulación con eventos</strong></p> -->
+        <div class="table_container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>vehiculo n</th>
+                        <th>Hora llegada</th>
+                        <th>Hora atencion</th>
+                        <th>Hora salida</th>
+                        <th>Tiempo de Atencion</th>
+                    </tr>
+                </thead>
+                <tbody id="list_events">
+                    <tr>
+                        <td>0</td>
+                        <td>0:00:00</td>
+                        <td>0:00:00</td>
+                        <td>0:00:00</td>
+                        <td>0h 0m 0s</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <!-- </div> -->
+    <!-- <div class="events_container">
+        <p><strong>Simulación con intervalos</strong></p> -->
+        <div class="table_container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>segundo n</th>
+                        <th>Hora llegada</th>
+                        <th>Hora atencion</th>
+                        <th>Hora salida</th>
+                        <th>Tiempo de Atencion</th>
+                    </tr>
+                </thead>
+                <tbody id="list_intervals">
+                    <tr>
+                        <td>0</td>
+                        <td>0:00:00</td>
+                        <td>0:00:00</td>
+                        <td>0:00:00</td>
+                        <td>0h 0m 0s</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <!-- </div> -->
+    <script src="time_line.js"></script>
+</body>
+</html>
