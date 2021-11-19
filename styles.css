@@ -94,16 +94,12 @@ body {
     cursor: pointer;
 }
 
-.table_container {
+.results_container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     column-gap: 20px;
-    max-height: 400px;
-    /* overflow-y: auto; */
-    margin-top: 20px;
-    border-bottom:solid black 1px;
 }
 
 .events_container {
@@ -111,6 +107,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.table_container {
+    column-gap: 20px;
+    max-height: 350px;
+    overflow-y: auto;
+    border-bottom:solid black 1px;
 }
 
 table{

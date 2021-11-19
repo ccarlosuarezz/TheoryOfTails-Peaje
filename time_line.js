@@ -20,7 +20,7 @@ const MAX_ARRIVAL_SECONDS = 60;
 
 button.addEventListener('click', getTimeLine);
 
-//JS 'Queues' --> {encolar ->array.push();} {encolar -> array.shift();}
+//JS 'Queues' --> {encolar ->array.push();} {desencolar -> array.shift();}
 
 function getTimeLine() {
     initTime = initTimeInput.valueAsNumber;
@@ -28,13 +28,8 @@ function getTimeLine() {
     arrivalFrequency = maxArrivalFrequency.valueAsNumber;
     atentionTime = maxAtentionTime.valueAsNumber;
     if (initTime >= 0 && finalTime >= 0 && arrivalFrequency >= 0 && atentionTime >= 0) {
-        let first_time = new Date(initTime + SETTING_LOCAL_TIME);
-        let last_time = new Date(finalTime + SETTING_LOCAL_TIME);
-        //console.log(first_time.toLocaleTimeString());
-        //console.log(last_time.toLocaleTimeString());
-        //console.log(msToTime(finalTime));
         getEvents(initTime, finalTime, arrivalFrequency, atentionTime);
-        //getIntervals(initTime, finalTime);
+        getIntervals(initTime, finalTime, arrivalFrequency, atentionTime);
     } else {
         window.alert('Aun no ha ingresado lo parametros');
     }
@@ -51,17 +46,14 @@ function getEvents(initTime, finalTime, arrivalFrequency, atentionTime) {
     while (time < finalTime) {
         arrivalTime = Math.floor(Math.random()*(arrivalFrequency)) * SECOND_IN_MS;
         time += arrivalTime;
-        if (time <= finalTime) {
             event++;
-            //console.log(`Hora de llegada vehiculo ${event}: ${msToDate(time)}`);
             if (queueEvents.length == 0) {
                 atentionTimeEvent = generateAtentionTime(atentionTime);
-                //console.log(`Tiempo de atencion: ${msToTime(atentionTimeEvent)}`);
                 queueEvents.push([event, time, time, atentionTimeEvent]);
             } else {
                 queueEvents.push([event, time]);
                 if (time > (queueEvents[0][2] + queueEvents[0][3])) {
-                    elementDequeue = queueEvents.shift(); //mostrar en tabla el primero de la cola y sacarlo. shift retorna el elemento sacado
+                    elementDequeue = queueEvents.shift();
                     printDequeueElement(elementDequeue);
                     atentionTimeEvent = generateAtentionTime(atentionTime);
                     if (queueEvents[0][1] > (elementDequeue[2] + elementDequeue[3])) {
@@ -72,11 +64,12 @@ function getEvents(initTime, finalTime, arrivalFrequency, atentionTime) {
                     queueEvents[0].push(atentionTimeEvent);
                 }
             }
-        }
     }
 }
 
 function getIntervals(initTime, finalTime, arrivalFrequency, atentionTime) { //Evaluar cada minuto
+    tableIntervals.innerHTML = '';
+    queueIntervals = [];
     let initTme = 0;
     let lastTime = 1200;
     let timeArrives = 15;
