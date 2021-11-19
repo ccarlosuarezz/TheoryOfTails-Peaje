@@ -6,6 +6,8 @@ const button = document.getElementById('simulate');
 
 const tableEvents = document.getElementById('list_events');
 const tableIntervals = document.getElementById('list_intervals');
+const eventsResult = document.getElementById('events_result');
+const intervalsResult = document.getElementById('intervals_result');
 
 let initTime;
 let finalTime;
@@ -64,26 +66,42 @@ function getEvents(initTime, finalTime, arrivalFrequency, atentionTime) {
                 }
             }
     }
+    eventsResult.innerHTML = `<strong>Atendidos: ${event-queueEvents.length}<br>En cola: ${queueEvents.length}<br>Total: ${event}</strong>`;
 }
 
-function getIntervals(initTime, finalTime, arrivalFrequency, atentionTime) { //Evaluar cada minuto
+function getIntervals(initTime, finalTime, arrivalFrequency, atentionTime) {
     tableIntervals.innerHTML = '';
     queueIntervals = [];
-    let time = initTime;
     let interval = 0;
+    let atentionTimeVehicle = 0;
     let total = 0;
     for (let time = initTime; time < finalTime; time+=SECOND_IN_MS) {
         interval++;
-        console.log(`${interval}: ${Math.floor(time/60)}:${time%60}`);
         if (Math.random() < 1/(arrivalFrequency)) {
-            console.log('OK');
             total++;
-            //Encolar
+            queueIntervals.push([total]);
+        }
+        if (queueIntervals.length == 0) {
+            printInterval(interval, time, queueIntervals.length, 'Libre');
         } else {
-            console.log('ERROR');
+            if (queueIntervals[0].length > 1) {
+                if (queueIntervals[0][1] == 0) {
+                    printInterval(interval, time, queueIntervals.length, `Vehiculo ${queueIntervals[0][0]} atendido en ${msToTime(queueIntervals[0][2])}`);
+                    queueIntervals.shift();
+                } else {
+                    printInterval(interval, time, queueIntervals.length, `Atendiendo al vehiculo ${queueIntervals[0][0]}`);
+                    queueIntervals[0][1] -= SECOND_IN_MS;
+                }
+            } else {
+                atentionTimeVehicle = generateAtentionTime(atentionTime);
+                queueIntervals[0].push(atentionTimeVehicle);
+                queueIntervals[0].push(atentionTimeVehicle);
+                printInterval(interval, time, queueIntervals.length, `Atendiendo al vehiculo ${queueIntervals[0][0]}`);
+                queueIntervals[0][1] -= SECOND_IN_MS;
+            }
         }
     }
-    console.log(`Eventos: ${total}`);
+    intervalsResult.innerHTML = `<strong>Atendidos: ${total-queueIntervals.length}<br>En cola: ${queueIntervals.length}<br>Total: ${total}</strong>`;
 }
 
 function generateAtentionTime(maxAtentionTime) {
@@ -110,11 +128,21 @@ function printDequeueElement(elementDequeue) {
     tableEvents.appendChild(newRow);
 }
 
-function toAddQueueTimes() {
-    let sum = queueEvents[0][1];
-    for (let i = 0; i < queueEvents; i++) {
-        sum += queueEvents[i][2];
-    }
+function printInterval(interval, time, queueLength, serverState) {
+    const newRow = document.createElement('tr');
+    const tdN = document.createElement('td');
+    const tdTime = document.createElement('td');
+    const tdQueueLenght = document.createElement('td');
+    const tdServerState = document.createElement('td');
+    tdN.textContent = interval;
+    tdTime.textContent = msToDate(time);
+    tdQueueLenght.textContent = queueLength;
+    tdServerState.textContent = serverState;
+    newRow.appendChild(tdN);
+    newRow.appendChild(tdTime);
+    newRow.appendChild(tdQueueLenght);
+    newRow.appendChild(tdServerState);
+    tableIntervals.appendChild(newRow);
 }
 
 function msToTime(miliseconds) {

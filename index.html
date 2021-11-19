@@ -46,7 +46,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>vehiculo n</th>
+                            <th>vehiculo</th>
                             <th>Hora llegada</th>
                             <th>Hora atencion</th>
                             <th>Hora salida</th>
@@ -64,33 +64,31 @@
                     </tbody>
                 </table>
             </div>
-            <p><strong>Atendidos: 0<br>En cola: 0</strong></p>
+            <p id="events_result"><strong>Atendidos: 0<br>En cola: 0<br>Total: 0</strong></p>
         </div>
-        <div class="events_container">
+        <div class="intervals_container">
             <p><strong>Simulación con intervalos</strong></p>
             <div class="table_container">
                 <table>
                     <thead>
                         <tr>
-                            <th>segundo n</th>
-                            <th>Hora llegada</th>
-                            <th>Hora atencion</th>
-                            <th>Hora salida</th>
-                            <th>Tiempo de Atencion</th>
+                            <th>Intervalo</th>
+                            <th>Hora</th>
+                            <th>Vehiculos en cola</th>
+                            <th>Estado del servidor</th>
                         </tr>
                     </thead>
                     <tbody id="list_intervals">
                         <tr>
                             <td>0</td>
                             <td>0:00:00</td>
-                            <td>0:00:00</td>
-                            <td>0:00:00</td>
-                            <td>0h 0m 0s</td>
+                            <td>0</td>
+                            <td>Muerto</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p><strong>Atendidos: 0<br>En cola: 0</strong></p>
+            <p id="intervals_result"><strong>Atendidos: 0<br>En cola: 0<br>Total: 0</strong></p>
         </div>
     </div>
     <script src="time_line.js"></script>

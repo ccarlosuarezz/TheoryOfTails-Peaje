@@ -102,7 +102,7 @@ body {
     column-gap: 20px;
 }
 
-.events_container {
+.events_container, .intervals_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
